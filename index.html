@@ -43,9 +43,7 @@
                 <p class="tagline">Push past your limits and explore the future of web design. UltraWeb delivers unparalleled online experiences, tailored for your success.</p>
                 <a href="#features" class="btn primary-btn animated-btn">Discover Our Features</a>
             </div>
-            <div class="hero-graphic">
-                <img src="images/hero-laptop.jpg" alt="Abstract digital illustration of a laptop with code and connected data nodes, representing web development services." class="responsive-img">
-            </div>
+            <!-- REMOVED: <div class="hero-graphic"> <img src="images/hero-laptop.jpg" alt="..." class="responsive-img"> </div> -->
         </section>
 
         <section id="about" class="about-section section-padding reveal-item">
@@ -111,7 +109,8 @@
                         <p>From intuitive navigation to captivating layouts, every element is crafted to provide an exceptional user journey.</p>
                     </div >
                 </div>
-                <p class="premium-callout">Ready to elevate your online presence? Access to the full suite of UltraWeb features and premium templates is available through our subscription plans. <a href="#contact">Contact us to learn more!</a></p>
+                <!-- This is the original premium-callout, updated to link to signup.html -->
+                <p class="premium-callout">Ready to elevate your online presence? Access to the full suite of UltraWeb features and premium templates is available through our subscription plans. <a href="signup.html">Click here to sign up and access our free academy!</a></p>
             </div>
         </section>
 
@@ -236,6 +235,17 @@ iframe.style.height = zf_ifrm_ht_nw;
 }catch(e){}
 })();</script>
                 </div>
+        </section>
+
+        <!-- NEW: Call to Action for UltraWeb Academy with Animations -->
+        <section id="academy-cta-demo" class="academy-cta-section section-padding reveal-item">
+            <div class="container text-center">
+                <h2>Ready to Master Web Design?</h2>
+                <p class="section-description">UltraWeb Academy offers free, comprehensive learning paths for HTML, CSS, and JavaScript, plus an interactive code sandbox. Start your journey to becoming a web development expert today!</p>
+                <a href="signup.html" class="btn primary-btn animated-btn">Go to UltraWeb Academy (Free Learning)</a>
+                <p class="mt-4">Already a pro? Get a custom website built by us!</p>
+                <a href="https://ultrawebexperience.github.io/UltraWebAcademy/premium.html" class="btn secondary-btn animated-btn">Explore Our Premium Build Service</a>
+            </div>
         </section>
     </main>
 
