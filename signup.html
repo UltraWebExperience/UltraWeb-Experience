@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up for UltraWeb Academy to access free web development courses and resources.">
+    <meta name="keywords" content="sign up, web development, online courses, HTML, CSS, JavaScript, coding academy, free learning, UltraWeb">
+    <meta name="author" content="UltraWeb Experience">
+    <title>Sign Up for UltraWeb Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="signup-page">
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">UltraWeb</a>
+                </div>
+        </nav>
+    </header>
+
+    <main class="signup-main">
+        <section class="signup-section">
+            <div class="signup-card">
+                <h2>Sign Up for UltraWeb Academy</h2>
+                <p class="section-description">Unlock free learning resources and premium web development insights.</p>
+                <p class="note-disclaimer">Note: This is a demo signup form. Upon successful submission, you will be redirected to the UltraWeb Academy demo site.</p>
+
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required aria-label="Full Name">
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required aria-label="Email Address">
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required aria-label="Password">
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+                    <button type="submit" class="btn primary-btn signup-btn">Sign Up</button>
+                </form>
+                <p id="signup-message" style="margin-top: 15px; font-weight: bold; color: green; display: none;">Signup successful! Redirecting to UltraWeb Academy...</p>
+                <p class="login-link">Already have an account? <a href="#">Login Here</a></p>
+                <p class="disclaimer-text">By signing up, you agree to our Terms of Service and Privacy Policy.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 UltraWeb Experience. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const signupForm = document.getElementById('signup-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+            const signupMessage = document.getElementById('signup-message');
+
+            // Function to display error messages
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+
+            // Function to clear error messages
+            function clearError(element) {
+                element.textContent = '';
+                element.style.display = 'none';
+            }
+
+            // Basic email validation regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            signupForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                let isValid = true;
+
+                // Clear previous errors
+                clearError(nameError);
+                clearError(emailError);
+                clearError(passwordError);
+                signupMessage.style.display = 'none';
+
+                // Validate Name
+                if (nameInput.value.trim() === '') {
+                    showError(nameError, 'Full Name is required.');
+                    isValid = false;
+                }
+
+                // Validate Email
+                if (emailInput.value.trim() === '') {
+                    showError(emailError, 'Email Address is required.');
+                    isValid = false;
+                } else if (!emailRegex.test(emailInput.value.trim())) {
+                    showError(emailError, 'Please enter a valid email address.');
+                    isValid = false;
+                }
+
+                // Validate Password
+                if (passwordInput.value.trim() === '') {
+                    showError(passwordError, 'Password is required.');
+                    isValid = false;
+                } else if (passwordInput.value.trim().length < 6) {
+                    showError(passwordError, 'Password must be at least 6 characters long.');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Simulate successful signup
+                    signupMessage.style.display = 'block'; // Show success message
+                    signupForm.reset(); // Clear the form
+
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'https://ultrawebexperience.github.io/UltraWebAcademy/'; // Redirect to the "real website"
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                }
+            });
+        });
+    </script>
+</body>
+</html>
