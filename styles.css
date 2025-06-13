@@ -22,6 +22,10 @@
 }
 
 /* Base Styles */
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
 body {
     font-family: var(--font-body);
     line-height: 1.6;
@@ -30,6 +34,13 @@ body {
     color: var(--text-color);
     background-color: var(--light-bg);
     transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column; /* Allows main and footer to push to edges */
+}
+
+main {
+    flex: 1; /* Allows main content to grow and push footer down */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -39,10 +50,14 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: var(--spacing-md);
 }
 
+p {
+    margin-bottom: 1em; /* Consistent paragraph spacing */
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--spacing-md); /* Consistent horizontal padding */
 }
 
 .section-padding {
@@ -358,54 +373,60 @@ body.dark-theme .note-disclaimer {
 }
 
 /* --- Sections --- */
+
+/* NEW: Keyframes for Hero Section Background Animations */
+@keyframes heroGradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes heroPatternMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 120px 120px; } /* Larger movement for pattern */
+}
+
 .hero-section {
-    background-color: #e0f2f7; /* Light blue background */
+    /* Combined animated background for the hero section */
+    background-image: url('data:image/svg+xml,%3Csvg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23fff" fill-opacity="0.08" fill-rule="evenodd"%3E%3Ccircle cx="60" cy="60" r="40"%2F%3E%3Ccircle cx="30" cy="30" r="15"%2F%3E%3Ccircle cx="90" cy="90" r="15"%2F%3E%3Cpath d="M0 0h120v120H0z" fill="none" opacity="0"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'),
+                    linear-gradient(135deg, #4CAF50 0%, #2196F3 100%); /* Green to Blue Gradient */
+    background-size: 120px 120px, 400% 400%; /* Pattern size, gradient size */
+    background-position: 0 0, 0% 50%; /* Initial positions */
+    animation: heroPatternMove 40s linear infinite, heroGradientMove 25s ease-in-out infinite alternate;
+
+    color: white; /* Text color for readability over dark/colorful background */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-lg) 0;
     min-height: 70vh;
-    overflow: hidden; /* For hero graphic */
+    overflow: hidden;
     position: relative;
 }
 
 .hero-content {
     text-align: center;
     max-width: 800px;
-    z-index: 1; /* Ensure content is above graphic */
+    z-index: 1; /* Ensure content is above background */
+    color: white; /* Ensure text is white */
 }
 
 .hero-content h1 {
-    font-size: 3.5em;
+    font-size: 3.5em; /* Adjusted for overall responsiveness */
     font-weight: 800;
     margin-bottom: var(--spacing-md);
+    color: white; /* Force white for heading */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4); /* Stronger shadow for pop */
 }
 
 .hero-content .tagline {
-    font-size: 1.3em;
+    font-size: 1.3em; /* Adjusted for overall responsiveness */
     margin-bottom: var(--spacing-lg);
-    color: var(--text-color);
+    color: rgba(255,255,255,0.9); /* Lighter white for tagline */
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
-.hero-graphic {
-    position: absolute;
-    bottom: 0;
-    right: -10%; /* Partially off-screen for effect */
-    z-index: 0;
-    max-width: 600px;
-    animation: none !important; /* Force remove any animations */
-}
-
-/* CRITICAL FIX: Ensure the image inside hero-graphic is fully opaque and no filters */
-.hero-graphic .responsive-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    opacity: 1 !important; /* Force full opacity */
-    filter: none !important; /* Remove any blur/fade filters */
-}
-
-
+/* --- About Section --- */
 .about-section {
     background-color: #fff;
 }
@@ -419,7 +440,7 @@ body.dark-theme .note-disclaimer {
 
 .about-content > div {
     flex: 1;
-    min-width: 300px; /* Ensures content doesn't get too squished */
+    min-width: 300px; /* Ensures content doesn't get too squished before wrapping */
 }
 
 .about-content .image-content {
@@ -433,18 +454,19 @@ body.dark-theme .note-disclaimer {
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
+/* --- Features Section --- */
 .features-section {
     background-color: var(--light-bg);
     text-align: center;
 }
 
 .features-section h2 {
-    font-size: 2.8em;
+    font-size: 2.8em; /* Adjusted for overall responsiveness */
     margin-bottom: var(--spacing-md);
 }
 
 .section-description {
-    font-size: 1.1em;
+    font-size: 1.1em; /* Adjusted for overall responsiveness */
     max-width: 700px;
     margin: 0 auto var(--spacing-lg) auto;
     color: var(--secondary-color);
@@ -477,14 +499,14 @@ body.dark-theme .note-disclaimer {
 }
 
 .feature-item h3 {
-    font-size: 1.5em;
+    font-size: 1.5em; /* Adjusted for overall responsiveness */
     color: var(--primary-color);
     margin-top: 0;
     margin-bottom: var(--spacing-sm);
 }
 
 .feature-item p {
-    font-size: 0.95em;
+    font-size: 0.95em; /* Adjusted for overall responsiveness */
     color: var(--text-color);
 }
 
@@ -494,7 +516,7 @@ body.dark-theme .note-disclaimer {
     border-radius: 8px;
     padding: var(--spacing-md);
     margin-top: var(--spacing-lg);
-    font-size: 1.1em;
+    font-size: 1.1em; /* Adjusted for overall responsiveness */
     color: var(--text-color);
     max-width: 800px;
     margin-left: auto;
@@ -506,6 +528,7 @@ body.dark-theme .note-disclaimer {
     font-weight: 600;
 }
 
+/* --- Gallery Section --- */
 .gallery-section {
     background-color: #fff;
     text-align: center;
@@ -536,7 +559,7 @@ body.dark-theme .note-disclaimer {
 
 .carousel-caption {
     color: #f2f2f2;
-    font-size: 1.2em;
+    font-size: 1.2em; /* Adjusted for overall responsiveness */
     padding: 8px 12px;
     position: absolute;
     bottom: 8px;
@@ -551,9 +574,9 @@ body.dark-theme .note-disclaimer {
     cursor: pointer;
     position: absolute;
     top: 50%;
+    transform: translateY(-50%); /* Centering vertically */
     width: auto;
     padding: 20px 25px; /* Larger padding for more space */
-    margin-top: -22px;
     color: white;
     font-weight: bold;
     font-size: 30px; /* Larger arrows for better visibility */
@@ -562,6 +585,8 @@ body.dark-theme .note-disclaimer {
     user-select: none;
     background-color: rgba(0,0,0,0.4);
     z-index: 100;
+    /* Added spacing from edge of container */
+    margin: 0 10px;
 }
 
 /* Position the "next button" to the right */
@@ -602,6 +627,7 @@ body.dark-theme .note-disclaimer {
 }
 
 
+/* --- FAQ Section --- */
 .faq-section {
     text-align: center;
     background-color: var(--light-bg);
@@ -632,7 +658,7 @@ body.dark-theme .note-disclaimer {
     border: none;
     outline: none;
     transition: background-color 0.3s ease;
-    font-size: 1.2em;
+    font-size: 1.2em; /* Adjusted for overall responsiveness */
     font-weight: 600;
     display: flex;
     justify-content: space-between;
@@ -672,6 +698,7 @@ body.dark-theme .note-disclaimer {
 }
 
 
+/* --- Contact Section --- */
 .contact-section {
     background-color: var(--dark-bg); /* Dark background for contact */
     color: white;
@@ -694,7 +721,7 @@ body.dark-theme .note-disclaimer {
     display: block; /* Remove extra space below iframe */
 }
 
-/* NEW: UltraWeb Academy Call to Action Section for Demo Site */
+/* --- UltraWeb Academy Call to Action Section for Demo Site --- */
 @keyframes backgroundPatternMove {
     0% { background-position: 0 0; }
     100% { background-position: 60px 60px; }
@@ -707,50 +734,49 @@ body.dark-theme .note-disclaimer {
 }
 
 .academy-cta-section {
-    /* Main background: Animated gradient + subtle pattern */
     background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23fff" fill-opacity="0.15" fill-rule="evenodd"%3E%3Cpath d="M0 40h20V20H0v20zm40 0h20V20H40v20zM20 0h20v20H20V0zm0 40h20V20H20v20zM0 0h20v20H0V0zm40 0h20v20H40V0z"/%3E%3C%2Fg%3E%3C%2Fsvg%3E'),
                     linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    background-size: 60px 60px, 200% 200%; /* Pattern size, gradient size */
-    background-position: 0 0, 0% 50%; /* Initial positions */
+    background-size: 60px 60px, 200% 200%;
+    background-position: 0 0, 0% 50%;
     animation: backgroundPatternMove 30s linear infinite, backgroundGradientShift 20s ease-in-out infinite alternate;
 
     color: white;
     padding: var(--spacing-lg) 0;
     text-align: center;
-    position: relative; /* For animation pseudo-elements */
-    overflow: hidden; /* Keep animations within bounds */
+    position: relative;
+    overflow: hidden;
 }
 
 .academy-cta-section h2 {
-    font-size: 3em;
+    font-size: 3em; /* Adjusted for overall responsiveness */
     font-weight: 800;
     margin-bottom: var(--spacing-md);
-    color: white; /* Ensure white text on gradient */
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* Add text shadow for emphasis */
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
 .academy-cta-section .section-description {
     color: rgba(255,255,255,0.9);
-    font-size: 1.2em;
+    font-size: 1.2em; /* Adjusted for overall responsiveness */
     margin-bottom: var(--spacing-lg);
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Add text shadow for emphasis */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 .academy-cta-section .btn {
-    margin: var(--spacing-sm); /* Space between buttons */
+    margin: var(--spacing-sm);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    border-radius: 12px; /* Slightly more rounded buttons */
-    font-size: 1.15em; /* Slightly larger button text */
-    padding: 18px 35px; /* More padding */
+    border-radius: 12px;
+    font-size: 1.15em; /* Adjusted for overall responsiveness */
+    padding: 18px 35px;
 }
 
 .academy-cta-section .btn:hover {
-    transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4); /* Stronger shadow on hover */
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .academy-cta-section .primary-btn {
-    background-image: linear-gradient(to right, #007bff 0%, #00c6ff 100%); /* Blue to light blue gradient */
+    background-image: linear-gradient(to right, #007bff 0%, #00c6ff 100%);
     background-size: 200% auto;
     transition: background-position 0.5s ease;
 }
@@ -760,7 +786,7 @@ body.dark-theme .note-disclaimer {
 }
 
 .academy-cta-section .secondary-btn {
-    background-image: linear-gradient(to right, #6c757d 0%, #adb5bd 100%); /* Gray to lighter gray gradient */
+    background-image: linear-gradient(to right, #6c757d 0%, #adb5bd 100%);
     background-size: 200% auto;
     transition: background-position 0.5s ease;
 }
@@ -769,9 +795,9 @@ body.dark-theme .note-disclaimer {
     background-position: right center;
 }
 
-.academy-cta-section .mt-4 { /* Custom margin top for "Already a pro?" text */
+.academy-cta-section .mt-4 {
     margin-top: calc(var(--spacing-md) * 2);
-    font-size: 1.1em;
+    font-size: 1.1em; /* Adjusted for overall responsiveness */
     color: rgba(255,255,255,0.9);
 }
 
@@ -780,8 +806,9 @@ footer {
     background-color: var(--text-color); /* Dark footer */
     color: rgba(255,255,255,0.7);
     padding: var(--spacing-md) 0;
-    font-size: 0.9em;
+    font-size: 0.9em; /* Adjusted for overall responsiveness */
     text-align: center;
+    margin-top: auto; /* Pushes footer to the bottom */
 }
 
 footer .container {
@@ -885,7 +912,7 @@ audio {
 }
 
 .modal-content p {
-    font-size: 1em;
+    font-size: 1em; /* Adjusted for overall responsiveness */
     color: var(--text-color);
 }
 
@@ -894,7 +921,7 @@ audio {
 }
 
 .instruction-item h3 {
-    font-size: 1.2em;
+    font-size: 1.2em; /* Adjusted for overall responsiveness */
     color: var(--accent-color);
     margin-bottom: var(--spacing-sm);
     display: flex;
@@ -938,14 +965,14 @@ body.signup-page {
 }
 
 .signup-card h2 {
-    font-size: 2.5em;
+    font-size: 2.5em; /* Adjusted for overall responsiveness */
     color: var(--primary-color);
     margin-bottom: var(--spacing-sm);
 }
 
 .signup-card .section-description {
     margin-bottom: var(--spacing-lg);
-    font-size: 1.1em;
+    font-size: 1.1em; /* Adjusted for overall responsiveness */
     color: var(--secondary-color);
 }
 
@@ -996,7 +1023,7 @@ body.signup-page {
 
 .login-link {
     margin-top: var(--spacing-md);
-    font-size: 0.95em;
+    font-size: 0.95em; /* Adjusted for overall responsiveness */
     color: var(--text-color);
 }
 
@@ -1011,14 +1038,14 @@ body.signup-page {
 }
 
 .disclaimer-text {
-    font-size: 0.8em;
+    font-size: 0.8em; /* Adjusted for overall responsiveness */
     color: var(--secondary-color);
     margin-top: var(--spacing-sm);
     line-height: 1.4;
 }
 
 .note-disclaimer {
-    font-size: 0.9em;
+    font-size: 0.9em; /* Adjusted for overall responsiveness */
     color: #e74c3c; /* Red for warning/note */
     font-weight: 600;
     margin-top: var(--spacing-md);
@@ -1028,6 +1055,32 @@ body.signup-page {
 }
 
 /* --- Responsive Adjustments --- */
+
+/* For screens smaller than 992px (typical for tablets and large phones) */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    .hero-content .tagline {
+        font-size: 1.2em;
+    }
+    .features-section h2, .academy-cta-section h2, .signup-card h2 {
+        font-size: 2.5em;
+    }
+    .section-description {
+        font-size: 1em;
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .academy-cta-section .btn {
+        font-size: 1.1em;
+        padding: 15px 30px;
+    }
+}
+
+/* For screens smaller than 768px (typical for phones in landscape) */
 @media (max-width: 768px) {
     .navbar .container {
         flex-direction: column;
@@ -1036,48 +1089,71 @@ body.signup-page {
     .nav-links {
         flex-direction: column;
         margin-top: var(--spacing-md);
+        width: 100%; /* Make nav links take full width */
     }
     .nav-links li {
         margin: 5px 0;
+        width: 100%;
+    }
+    .nav-links a {
+        padding: 10px 0; /* Increase touch target */
+        display: block;
     }
     .nav-controls {
         margin-top: var(--spacing-md);
         justify-content: center;
         width: 100%;
         margin-left: 0;
+        flex-wrap: wrap; /* Allow controls to wrap */
+    }
+    .nav-control-btn {
+        flex: 1 1 auto; /* Allow buttons to grow/shrink and wrap */
+        min-width: 100px; /* Prevent them from becoming too small */
+        margin: 5px; /* Add some margin between buttons */
     }
     .hero-content h1 {
-        font-size: 2.5em;
+        font-size: 2.2em; /* Smaller on mobile */
     }
     .hero-content .tagline {
-        font-size: 1.1em;
+        font-size: 1em; /* Smaller on mobile */
     }
     .about-content {
         flex-direction: column;
     }
+    .about-content > div {
+        min-width: unset; /* Remove min-width to allow full shrinking */
+        width: 100%;
+    }
     .features-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack features vertically */
     }
     .carousel-caption {
         font-size: 1em;
         padding: 5px;
     }
-    /* Adjusted prev/next padding for mobile */
+    /* Adjusted prev/next padding for mobile to be less intrusive */
     .prev, .next {
-        padding: 10px;
+        padding: 10px 15px; /* Reduced padding */
         font-size: 24px; /* Slightly smaller on mobile but still prominent */
     }
     footer .container {
         flex-direction: column;
+        text-align: center;
     }
     .footer-links {
         margin-top: var(--spacing-md);
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Stack footer links */
+        gap: 5px;
     }
     .footer-links a {
-        margin: 0 10px;
+        margin: 0; /* Remove horizontal margin */
+        padding: 5px 0; /* Add vertical padding */
     }
     .modal-content {
         padding: var(--spacing-md);
+        max-width: 95%; /* Allow modal to take more width on small screens */
     }
     .modal-content h2 {
         font-size: 1.8em;
@@ -1094,6 +1170,11 @@ body.signup-page {
     .academy-cta-section .section-description {
         font-size: 1em;
     }
+    .academy-cta-section .btn {
+        display: block; /* Make buttons stack vertically */
+        width: 90%; /* Take up more width */
+        margin: 10px auto; /* Center them with vertical margin */
+    }
     .signup-card {
         padding: var(--spacing-md);
     }
@@ -1102,27 +1183,59 @@ body.signup-page {
     }
 }
 
+/* For screens smaller than 480px (very small phones) */
 @media (max-width: 480px) {
     .hero-content h1 {
-        font-size: 2em;
+        font-size: 1.8em;
+    }
+    .hero-content .tagline {
+        font-size: 0.9em;
+    }
+    .features-section h2, .academy-cta-section h2, .signup-card h2 {
+        font-size: 1.8em;
     }
     .btn {
         padding: 10px 20px;
-        font-size: 1em;
+        font-size: 0.9em;
     }
     .nav-control-btn {
-        padding: 6px 10px;
-        font-size: 1em;
+        padding: 5px 8px;
+        font-size: 0.9em;
     }
-    .academy-cta-section .btn {
-        display: block;
-        width: 90%;
-        margin: 10px auto;
+    .navbar .logo {
+        font-size: 1.5em;
+    }
+    .section-padding {
+        padding: var(--spacing-md) 0; /* Reduce section padding on very small screens */
+    }
+    .modal-content {
+        padding: var(--spacing-sm);
+    }
+    .modal-content h2 {
+        font-size: 1.5em;
+    }
+    .instruction-item h3 {
+        font-size: 1em;
     }
     .signup-card {
         padding: var(--spacing-sm);
     }
-    .signup-card h2 {
-        font-size: 1.8em;
+    .signup-card .section-description,
+    .signup-card .note-disclaimer,
+    .signup-card .disclaimer-text {
+        font-size: 0.85em;
     }
 }
+
+/* Scroll reveal animations */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
